@@ -11,6 +11,7 @@ import rochi.burko.Meli.dto.SearchStockDTO;
 import rochi.burko.Meli.dto.StockDTO;
 import rochi.burko.Meli.repository.StockRepository;
 import rochi.burko.Meli.requests.StockOperationRequest;
+import rochi.burko.Meli.responses.StockOperationResponse;
 import rochi.burko.Meli.service.StockService;
 
 import javax.validation.Valid;
@@ -33,10 +34,11 @@ public class StockController {
 
     @PostMapping("/addProductInLocation")
     @ResponseBody
-    public ResponseEntity<String> addProduct(@Valid @RequestBody StockOperationRequest request){
+    public ResponseEntity<StockOperationResponse> addProduct(@Valid @RequestBody StockOperationRequest request){
         try{
             stockService.addProduct(request);
-            return ResponseEntity.ok("The product was successfully added");
+            StockOperationResponse response = new StockOperationResponse("The product was successfully added");
+            return ResponseEntity.ok(response);
         } catch (RuntimeException exception){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
@@ -48,10 +50,11 @@ public class StockController {
 
     @PostMapping("/removeProductFromLocation")
     @ResponseBody
-    public ResponseEntity<String> removeProduct(@Valid @RequestBody StockOperationRequest request){
+    public ResponseEntity<StockOperationResponse> removeProduct(@Valid @RequestBody StockOperationRequest request){
         try{
             stockService.removeProduct(request);
-            return ResponseEntity.ok("The product was successfully removed");
+            StockOperationResponse response = new StockOperationResponse("The product was successfully removed");
+            return ResponseEntity.ok(response);
         } catch (RuntimeException exception){
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,

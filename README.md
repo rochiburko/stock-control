@@ -16,9 +16,11 @@ Luego al levantar el proyecto, se inicializara la base de datos con:
 - **stock:** MLA813727183 - Cant:10 - Ubicacion: LM-00-00-IZ (AR01)
 ## API Endpoints
 
-**POST para agregar productos en una ubicación:**
+####POST para agregar productos en una ubicación:
 http://localhost:8080/api/addProductInLocation
 - Se indicará el depósito, producto, cantidad y ubicación donde se quiere agregar el producto.
+
+**Request:**
 ```json
 {
     "warehouseCode":"AR01",
@@ -28,9 +30,18 @@ http://localhost:8080/api/addProductInLocation
 }
 ```
 
-**POST para retirar productos en una ubicación:**
+**Response:**
+```json
+{
+    "message": "The product was successfully added"
+}
+```
+
+####POST para retirar productos en una ubicación:
 http://localhost:8080/api/removeProductFromLocation
 - Se nos indicará el depósito, producto, cantidad y ubicación de donde retirar el producto.
+
+**Request:**
 ```json
 {
     "warehouseCode":"AR01",
@@ -39,13 +50,41 @@ http://localhost:8080/api/removeProductFromLocation
     "productId":"MLA813727183"
 }
 ```
+**Response:**
+```json
+{
+    "message": "The product was successfully removed"
+}
+```
 
-**GET de lectura:**
+####GET de lectura:
 http://localhost:8080/api/listProductFromLocation?warehouse=AR01&location=LM-00-00-DE
+**Response:**
+```json
+[
+    {
+        "productId": "MLA813727183",
+        "quantity": 1
+    }
+]
+```
 
-**GET de busqueda:**
+####GET de busqueda:
 http://localhost:8080/api/searchProductFromWarehouse?warehouse=AR01&product=MLA813727183
 
+**Response:**
+```json
+[
+    {
+        "locationCode": "LM-00-00-IZ",
+        "quantity": 10
+    },
+    {
+        "locationCode": "LM-00-00-DE",
+        "quantity": 1
+    }
+]
+```
 ## Consideraciones
 
 Los endpoints respetan la consigna propuesta, es decir:
